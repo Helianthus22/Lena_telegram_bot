@@ -1,2 +1,2 @@
 # Lena_telegram_bot
-Chat bot that allows user to ask questions and receive answers
+A to-do bot that helps user deliberately make plans and follow through on them 
