@@ -1,22 +1,63 @@
+#!/usr/bin/python3
+
+import asyncio
+import logging
 from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, Filters
-from settings import BOT_TOKEN, CUSTOM_REPLIES
+from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
 
-async def hello(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-  await update.message.reply_text(f'Hello {update.effective_user.first_name}')
+logging.basicConfig(
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    level=logging.INFO
+)
 
-# This function would listen to new messages from the user and send a reply
-async def custom_reply(update, context):
-  message = update.effective_message.text
-  reply_text = CUSTOM_REPLIES.get(message)
-  if reply_text:
-    update.message.reply_text(text=reply_text)
 
-app = ApplicationBuilder().token(BOT_TOKEN).build()
+# Defining Functions
+async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """
+    This function initializes a conversation with the bot.... 
+    """
+    await context.bot.send_message(chat_id=update.effective_chat.id, text="I'm a bot, please talk to me!")
 
-app.add_handler(CommandHandler("hello", hello))
 
-# A new handler to filter messages received in private chat only
-app.add_handler(MessageHandler(Filters.text & Filters.private, custom_reply))
+async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """
+    This function guides users on which commands to use....
+   """
+    text = """
+/start    =>       Starts a Convesation with DeepChat
+/todolist =>       Tells DeepChat to get ready for TodoList Creation
+/help     =>       Guidains command 
+"""
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=text)
 
-app.run_polling()
+    ################################################################################### 
+    ##                      Here comes DeepChat's Power                              ##
+    ###################################################################################
+
+
+async def todolist_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """
+        This function gets/fetch info from google calender
+    
+    """
+    await context.bot.send_message(chat_id=update.effective_chat.id, text="Hello, this is your to-do list")
+    pass
+
+
+if __name__ == "__main__":
+    from sys import argv
+
+    application = ApplicationBuilder().token('6244940168:AAGPgPSjsxDyC-OQQ0FVC72Pst6rnggmvXc').build()
+
+    """
+    Command Handlers to handle /start, /help, /todolist and (more to come) commands
+    """
+    start_handler = CommandHandler('start', start_command)
+    help_handler = CommandHandler('help', help_command)
+    todolist_handler = CommandHandler('todolist', todolist_command)
+    application.add_handler(start_handler)
+    application.add_handler(help_handler)
+    application.add_handler(todolist_handler)
+
+    # Polling
+    application.run_polling()
