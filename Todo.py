@@ -15,7 +15,7 @@ TASK, DELETE = range(2)
 # Define the start function
 async def start_bot(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     await context.bot.send_message(chat_id=update.effective_chat.id,
-                                   text='Hi! I am Gary, your todo list bot. You can add tasks by sending me messages.\n'
+                                   text='Hi! I am Lena, your todo list bot. You can add tasks by sending me messages.\n'
                                         'After typing your task, use the /new command to add it to your todo list.\n'
                                         'To see all your tasks, use the /list command.\n'
                                         'To see these options again, use the /help command.\n')
