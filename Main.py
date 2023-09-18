@@ -47,7 +47,7 @@ async def todolist_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 if __name__ == "__main__":
     from sys import argv
 
-    application = ApplicationBuilder().token('6244940168:AAGPgPSjsxDyC-OQQ0FVC72Pst6rnggmvXc').build()
+    application = ApplicationBuilder().token('6696230486:AAHn2IyePbZSG4bPT0xjXlQFeo0oFmSICrw').build()
 
     """
     Command Handlers to handle /start, /help, /todolist and (more to come) commands
